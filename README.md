@@ -19,7 +19,8 @@ No application backend, no document uploads to a third-party service, and no bui
   saved PDFs live in a folder in the user's own Drive.
 - **Cross-device restore**. Sign in with the same Google account and folder name on a new device
   to pull down saved marks and recent documents.
-- **Export** a flattened signed PDF, download it, or save it back to Drive.
+- **Export** a signed PDF with your marks baked into the page, download it, or save it back to
+  Drive.
 - **Static deployment**. The production build is plain HTML, CSS, JavaScript, and a PDF.js worker.
 
 ## Privacy model
@@ -127,7 +128,7 @@ Vite uses a relative base path, so the app works from a project Pages URL such a
 4. Click a saved mark in the sidebar to place it on the current page, or drag it onto an exact spot.
    Drag stamps to move them and use the corner handle to resize.
 5. Use the selection toolbar to change text font, color, or size, or to delete the selected item.
-6. Click **Download** for a local copy or **Save to Drive** to store the flattened PDF.
+6. Click **Download** for a local copy or **Save to Drive** to store the signed PDF.
 
 ### Restoring on a new device
 

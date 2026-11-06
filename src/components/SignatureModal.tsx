@@ -139,7 +139,7 @@ export default function SignatureModal({
         disabled={saving || !hasInk}
       >
         {saving ? <span className="spinner" /> : <Save size={16} />}
-        {saving ? 'Saving to Drive…' : 'Save mark'}
+        {saving ? 'Saving…' : 'Save mark'}
       </button>
     </Modal>
   );
