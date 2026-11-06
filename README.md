@@ -68,6 +68,24 @@ npm run dev
 
 Open the printed local URL, normally `http://localhost:5173`.
 
+### Phone signing on a local network
+
+A phone cannot reach `localhost` or `127.0.0.1` because those addresses point back to the phone
+itself. Start the network-accessible dev server:
+
+```bash
+npm run dev:lan
+```
+
+Then open the **Network** URL printed by Vite on the desktop, for example
+`http://192.168.1.20:5173`, and show the QR code from that tab. The computer and phone must be on
+the same network. Opening `dist/index.html` as a local file will not work for phone signing or
+Drive; serve the app over `http://` or `https://` instead.
+
+Google OAuth only allows an `http://` origin for `localhost`; other origins need HTTPS. Phone
+signing works over a plain-HTTP LAN address, but Drive sync should be tested from `localhost` or
+the deployed HTTPS site.
+
 Optional environment variables:
 
 ```bash
@@ -163,9 +181,11 @@ the `VITE_TURN_*` variables.
 
 ```bash
 npm run dev        # Vite development server
+npm run dev:lan    # Vite server reachable from a phone on the LAN
 npm run typecheck  # TypeScript project check
 npm run build      # typecheck + production build to dist/
 npm run preview    # preview the production build
+npm run preview:lan # preview the build on the LAN
 ```
 
 ## Technical notes and limitations

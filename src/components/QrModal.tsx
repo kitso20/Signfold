@@ -46,13 +46,28 @@ export default function QrModal({ open, onClose, onReceived }: QrModalProps) {
 
   const copyLink = async () => {
     if (!mobileUrl) return;
+    let success = false;
     try {
-      await navigator.clipboard.writeText(mobileUrl);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(mobileUrl);
+        success = true;
+      }
     } catch {
-      setCopied(false);
+      success = false;
     }
+    if (!success) {
+      const textarea = document.createElement('textarea');
+      textarea.value = mobileUrl;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      success = document.execCommand('copy');
+      textarea.remove();
+    }
+    setCopied(success);
+    if (success) window.setTimeout(() => setCopied(false), 1800);
   };
 
   return (

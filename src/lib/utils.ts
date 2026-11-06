@@ -1,5 +1,14 @@
+export function randomToken(byteLength = 16): string {
+  const bytes = new Uint8Array(byteLength);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+}
+
 export function createId(prefix = 'id'): string {
-  const random = crypto.randomUUID().replace(/-/g, '').slice(0, 16);
+  const random =
+    typeof crypto.randomUUID === 'function'
+      ? crypto.randomUUID().replace(/-/g, '').slice(0, 16)
+      : randomToken(8);
   return `${prefix}_${random}`;
 }
 

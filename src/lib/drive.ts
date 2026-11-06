@@ -1,5 +1,6 @@
 import type { AppSettings } from '../types';
 import { createDefaultSettings } from '../types';
+import { randomToken } from './utils';
 
 const DRIVE_API = 'https://www.googleapis.com/drive/v3';
 const UPLOAD_API = 'https://www.googleapis.com/upload/drive/v3';
@@ -190,7 +191,7 @@ export class DriveClient {
     mimeType: string,
     bytes: Uint8Array,
   ): Promise<DriveFile> {
-    const boundary = `signfold_${crypto.randomUUID().replace(/-/g, '')}`;
+    const boundary = `signfold_${randomToken(16)}`;
     const metadata = JSON.stringify({ name, mimeType, parents: [folderId] });
     const body = new Blob([
       `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n`,

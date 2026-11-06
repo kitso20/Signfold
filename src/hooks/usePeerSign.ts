@@ -16,6 +16,36 @@ export interface ReceivedPhoneSignature {
 
 const MAX_SIGNATURE_LENGTH = 6_000_000;
 
+function isLoopbackHost(hostname: string): boolean {
+  const host = hostname.toLowerCase();
+  return (
+    host === 'localhost' ||
+    host.endsWith('.localhost') ||
+    host === '0.0.0.0' ||
+    host === '[::]' ||
+    host === '::' ||
+    host === '::1' ||
+    host === '[::1]' ||
+    host.startsWith('127.')
+  );
+}
+
+function getSigningBaseUrl(): { url?: string; error?: string } {
+  const { protocol, origin, pathname, hostname } = window.location;
+  if ((protocol !== 'http:' && protocol !== 'https:') || !origin || origin === 'null') {
+    return {
+      error:
+        'Phone signing needs Signfold to be opened at a web address (http:// or https://), not as a local file. Use the deployed site or a local web server, then try again.',
+    };
+  }
+  if (isLoopbackHost(hostname)) {
+    return {
+      error:
+        'A phone cannot reach localhost. Open Signfold on this computer using its network address (for example http://192.168.1.20:5173) or the deployed HTTPS URL, then try again.',
+    };
+  }
+  return { url: `${origin}${pathname}` };
+}
 
 export function usePeerSign(onSignature: (signature: ReceivedPhoneSignature) => void) {
   const [status, setStatus] = useState<PeerSessionStatus>('starting');
@@ -46,12 +76,20 @@ export function usePeerSign(onSignature: (signature: ReceivedPhoneSignature) => 
     setStatus('starting');
     setError('');
     setQrDataUrl('');
+    setSessionId('');
+    setMobileUrl('');
+
+    const base = getSigningBaseUrl();
+    if (!base.url) {
+      setError(base.error || 'Phone signing is not available from this address.');
+      setStatus('error');
+      return;
+    }
 
     const id = `signfold-${createId('').replace('_', '')}`.toLowerCase();
     setSessionId(id);
 
-    const baseUrl = `${window.location.origin}${window.location.pathname}`;
-    const url = `${baseUrl}#/sign?session=${encodeURIComponent(id)}`;
+    const url = `${base.url}#/sign?session=${encodeURIComponent(id)}`;
     setMobileUrl(url);
 
     try {
