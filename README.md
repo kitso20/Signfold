@@ -87,7 +87,13 @@ cp .env.example .env
 ## Google Drive / OAuth setup
 
 1. Open the [Google Cloud console](https://console.cloud.google.com/) and create a project.
-2. Enable **Google Drive API** under *APIs & Services → Library*.
+2. Enable the **Google Drive API** for that project:
+   - Open *APIs & Services → Library*, or go directly to
+     [Google Drive API](https://console.cloud.google.com/apis/library/drive.googleapis.com).
+   - Confirm the correct project is selected in the project picker at the top.
+   - Search for **Google Drive API**, open it, and click **Enable**.
+   - Wait for provisioning to finish. *APIs & Services → Enabled APIs & services* should then list
+     **Google Drive API**. The API must be enabled in the same project as the OAuth client ID.
 3. Configure the **OAuth consent screen**. For personal use, add your own account as a test user.
    Publish the app later if you want others to use it.
 4. Create credentials: *APIs & Services → Credentials → Create credentials → OAuth client ID*.
