@@ -40,7 +40,6 @@ async function parseError(response: Response): Promise<never> {
     const body = (await response.json()) as { error?: { message?: string } };
     if (body.error?.message) message = body.error.message;
   } catch {
-    // Keep the default message when Drive does not return JSON.
   }
   throw new DriveError(message, response.status);
 }
@@ -82,6 +81,7 @@ export class DriveClient {
       .split('/')
       .map((segment) => segment.trim())
       .filter(Boolean);
+    if (segments[0]?.toLowerCase() === 'my drive') segments.shift();
     if (segments.length === 0) segments.push('Signfold');
 
     let parentId = 'root';
@@ -211,6 +211,17 @@ export class DriveClient {
       body,
     });
     return (await response.json()) as DriveFile;
+  }
+
+  async updatePdf(fileId: string, bytes: Uint8Array): Promise<void> {
+    await this.request(
+      `${UPLOAD_API}/files/${encodeURIComponent(fileId)}?uploadType=media&supportsAllDrives=true`,
+      {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/pdf' },
+        body: bytes as unknown as BodyInit,
+      },
+    );
   }
 
   async downloadFile(fileId: string): Promise<Uint8Array> {

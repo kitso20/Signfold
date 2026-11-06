@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Peer, { type DataConnection } from 'peerjs';
 import QRCode from 'qrcode';
 import { createId } from '../lib/utils';
+import { buildPeerOptions } from '../lib/peerOptions';
 import type { SignatureKind } from '../types';
 
 export type PeerSessionStatus = 'starting' | 'waiting' | 'connecting' | 'connected' | 'received' | 'error';
@@ -15,24 +16,6 @@ export interface ReceivedPhoneSignature {
 
 const MAX_SIGNATURE_LENGTH = 6_000_000;
 
-function buildPeerOptions() {
-  const host = import.meta.env.VITE_PEER_HOST?.trim();
-  const config = {
-    iceServers: [
-      { urls: 'stun:stun.l.google.com:19302' },
-      { urls: 'stun:global.stun.twilio.com:3478' },
-    ],
-  };
-  if (!host) return { config, debug: 0 };
-  return {
-    host,
-    port: Number(import.meta.env.VITE_PEER_PORT || 443),
-    path: import.meta.env.VITE_PEER_PATH || '/',
-    secure: import.meta.env.VITE_PEER_SECURE !== 'false',
-    config,
-    debug: 0,
-  };
-}
 
 export function usePeerSign(onSignature: (signature: ReceivedPhoneSignature) => void) {
   const [status, setStatus] = useState<PeerSessionStatus>('starting');
@@ -72,20 +55,22 @@ export function usePeerSign(onSignature: (signature: ReceivedPhoneSignature) => 
     setMobileUrl(url);
 
     try {
-      setQrDataUrl(
-        await QRCode.toDataURL(url, {
-          width: 360,
-          margin: 1,
-          errorCorrectionLevel: 'M',
-          color: { dark: '#151827', light: '#ffffff' },
-        }),
-      );
+      const qr = await QRCode.toDataURL(url, {
+        width: 360,
+        margin: 1,
+        errorCorrectionLevel: 'M',
+        color: { dark: '#151827', light: '#ffffff' },
+      });
+      if (destroyedRef.current) return;
+      setQrDataUrl(qr);
     } catch {
+      if (destroyedRef.current) return;
       setError('Could not create the QR code.');
       setStatus('error');
       return;
     }
 
+    if (destroyedRef.current) return;
     const peer = new Peer(id, buildPeerOptions());
     peerRef.current = peer;
 

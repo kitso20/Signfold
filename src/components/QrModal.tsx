@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Check, Copy, Link2, Loader2, RefreshCcw, Smartphone, Wifi } from 'lucide-react';
+import { Check, Link2, Loader2, RefreshCcw, Smartphone, Wifi } from 'lucide-react';
 import Modal from './Modal';
 import { usePeerSign, type ReceivedPhoneSignature } from '../hooks/usePeerSign';
 
