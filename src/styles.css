@@ -1554,7 +1554,11 @@ code {
 }
 
 .segmented button {
+  display: flex;
   flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   height: 34px;
   border: 0;
   border-radius: 7px;
@@ -1621,6 +1625,105 @@ code {
 
 .sig-placeholder svg {
   color: #9aa1b1;
+}
+
+.import-area {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.import-drop {
+  display: flex;
+  min-height: 190px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 18px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff, #fbfbfd);
+  color: var(--muted-strong);
+  text-align: center;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.import-drop:hover:not(:disabled) {
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.import-drop:disabled {
+  opacity: 0.65;
+}
+
+.import-drop strong {
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.import-drop > span:last-child {
+  max-width: 280px;
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.import-drop-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.import-preview {
+  display: grid;
+  min-height: 190px;
+  place-items: center;
+  padding: 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(45deg, #f1f3f8 25%, transparent 25%),
+    linear-gradient(-45deg, #f1f3f8 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #f1f3f8 75%),
+    linear-gradient(-45deg, transparent 75%, #f1f3f8 75%);
+  background-position:
+    0 0,
+    0 7px,
+    7px -7px,
+    -7px 0;
+  background-size: 14px 14px;
+  overflow: hidden;
+}
+
+.import-preview img {
+  max-width: 100%;
+  max-height: 170px;
+  object-fit: contain;
+}
+
+.import-file {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.import-file span:first-child {
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sig-meta-row {

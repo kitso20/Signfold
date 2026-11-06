@@ -10,6 +10,7 @@ import {
   RefreshCw,
   Smartphone,
   Trash2,
+  Upload,
   UploadCloud,
   X,
 } from 'lucide-react';
@@ -40,6 +41,7 @@ interface SidebarProps {
   onUseSignature: (asset: SignatureAsset) => void;
   onUseEmail: (asset: EmailAsset) => void;
   onDrawSignature: (kind: SignatureKind) => void;
+  onUploadSignature: () => void;
   onSignOnPhone: () => void;
   onDeleteSignature: (asset: SignatureAsset) => void;
   onDeleteEmail: (asset: EmailAsset) => void;
@@ -63,6 +65,7 @@ export default function Sidebar({
   onUseSignature,
   onUseEmail,
   onDrawSignature,
+  onUploadSignature,
   onSignOnPhone,
   onDeleteSignature,
   onDeleteEmail,
@@ -172,6 +175,10 @@ export default function Sidebar({
             <PenLine size={15} /> Initials
           </button>
         </div>
+
+        <button className="btn btn-ghost compact btn-full" type="button" onClick={onUploadSignature}>
+          <Upload size={15} /> Upload image
+        </button>
 
         <button className="phone-cta" type="button" onClick={onSignOnPhone}>
           <span className="phone-cta-icon">

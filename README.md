@@ -13,6 +13,8 @@ No application backend, no document uploads to a third-party service, and no bui
 - **Click-to-type text** directly on any page. Text stays editable, selectable, and exportable.
 - **Saved stamps** for signatures, initials, and email addresses. Click to place or drag onto a
   page, then move and resize.
+- **Signature image import** for existing PNG, JPG, or WebP scans. Signfold trims the image and
+  removes white backgrounds locally, then turns it into a reusable stamp.
 - **Sign on phone** with a QR code. The phone opens a mobile drawing canvas and sends the signature
   to the desktop in real time over WebRTC.
 - **Google Drive sync** with OAuth 2.0. Signatures, initials, email stamps, recent documents, and
@@ -130,7 +132,8 @@ Vite uses a relative base path, so the app works from a project Pages URL such a
 1. Open a PDF from the device or from a recent Drive document.
 2. Use the **Text** tool and click anywhere on a page to start typing. Press `Esc` or click away to
    finish. `Select` mode lets you click empty space to deselect.
-3. Draw a signature or initials with **Signature** / **Initials**, or use **Sign on phone**.
+3. Draw a signature or initials with **Signature** / **Initials**, import an existing image with
+   **Upload image**, or use **Sign on phone**.
 4. Click a saved mark in the sidebar to place it on the current page, or drag it onto an exact spot.
    Drag stamps to move them and use the corner handle to resize.
 5. Use the selection toolbar to change text font, color, or size, or to delete the selected item.

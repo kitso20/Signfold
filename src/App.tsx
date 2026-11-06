@@ -100,6 +100,7 @@ export default function App() {
 
   const [signatureModalOpen, setSignatureModalOpen] = useState(false);
   const [signatureKind, setSignatureKind] = useState<SignatureKind>('signature');
+  const [signatureModalMode, setSignatureModalMode] = useState<'draw' | 'upload'>('draw');
   const [qrOpen, setQrOpen] = useState(false);
 
   const [document, setDocument] = useState<PdfDocumentState | null>(null);
@@ -636,6 +637,13 @@ export default function App() {
 
   const drawSignature = useCallback((kind: SignatureKind) => {
     setSignatureKind(kind);
+    setSignatureModalMode('draw');
+    setSignatureModalOpen(true);
+  }, []);
+
+  const uploadSignature = useCallback(() => {
+    setSignatureKind('signature');
+    setSignatureModalMode('upload');
     setSignatureModalOpen(true);
   }, []);
 
@@ -781,6 +789,7 @@ export default function App() {
           onUseSignature={useSignature}
           onUseEmail={useEmail}
           onDrawSignature={drawSignature}
+          onUploadSignature={uploadSignature}
           onSignOnPhone={() => setQrOpen(true)}
           onDeleteSignature={deleteSignature}
           onDeleteEmail={deleteEmail}
@@ -861,6 +870,7 @@ export default function App() {
       <SignatureModal
         open={signatureModalOpen}
         initialKind={signatureKind}
+        initialMode={signatureModalMode}
         onClose={() => setSignatureModalOpen(false)}
         onSave={handleSaveSignature}
       />

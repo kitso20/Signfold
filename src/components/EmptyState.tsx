@@ -68,7 +68,7 @@ export default function EmptyState({ connected, loading, onOpenFile, onConnect }
             <Stamp size={20} />
           </span>
           <strong>Saved marks</strong>
-          <p>Click or drag signatures, initials, and email stamps onto the page.</p>
+          <p>Draw or import signatures and initials, then click or drag them onto the page.</p>
         </div>
         <div className="feature-card">
           <span className="feature-icon">
