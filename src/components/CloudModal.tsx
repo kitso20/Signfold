@@ -127,9 +127,9 @@ export default function CloudModal({
               <h3>One-time Google setup</h3>
               <ol>
                 <li>
-                  Create an OAuth 2.0 Web application client in the{' '}
+                  Create or select a project in the{' '}
                   <a
-                    href="https://console.cloud.google.com/apis/credentials"
+                    href="https://console.cloud.google.com/"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -137,9 +137,39 @@ export default function CloudModal({
                   </a>
                   .
                 </li>
-                <li>Enable the Google Drive API for the project.</li>
                 <li>
-                  Add <code>{window.location.origin}</code> as an authorized JavaScript origin.
+                  Enable the <strong>Google Drive API</strong> for that same project:{' '}
+                  <a
+                    href="https://console.cloud.google.com/apis/library/drive.googleapis.com"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    open the Drive API page <ExternalLink size={12} />
+                  </a>
+                  , select the project, click <strong>Enable</strong>, then wait until it appears
+                  under <em>Enabled APIs &amp; services</em>.
+                </li>
+                <li>
+                  Configure the{' '}
+                  <a
+                    href="https://console.cloud.google.com/apis/credentials/consent"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    OAuth consent screen <ExternalLink size={12} />
+                  </a>{' '}
+                  and add your account as a test user if the app is in testing.
+                </li>
+                <li>
+                  Create an{' '}
+                  <a
+                    href="https://console.cloud.google.com/apis/credentials"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    OAuth 2.0 Web application client <ExternalLink size={12} />
+                  </a>{' '}
+                  and add <code>{window.location.origin}</code> as an authorized JavaScript origin.
                 </li>
                 <li>Paste the client ID below. It is public configuration, not a secret.</li>
               </ol>
