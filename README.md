@@ -7,6 +7,9 @@ Drive.
 
 No application backend, no document uploads to a third-party service, and no build-time secrets.
 
+**[Open Signfold](https://kitso20.github.io/Signfold/)** — the live site works on desktop and
+phones. Open the same link on your phone to scan the signing QR code.
+
 ## Features
 
 - **PDF.js rendering** with continuous scrolling, zoom, fit-to-width, and page tracking.
@@ -143,7 +146,12 @@ You can provide the client ID in either of two ways:
    `https://<your-github-username>.github.io`.
 
 Vite uses a relative base path, so the app works from a project Pages URL such as
-`https://username.github.io/pdfeditor/`.
+`https://kitso20.github.io/Signfold/`.
+
+This repository is already configured to build with GitHub Actions, and the Pages URL is set as
+the repository website, so visitors can click **Signfold** in the repository sidebar (or the link
+above) to open the working app. Every push to `main` redeploys automatically — no manual deploy
+step is needed.
 
 ## Using the app
 
@@ -169,7 +177,7 @@ Vite uses a relative base path, so the app works from a project Pages URL such a
 The QR code points at a hash route in the same static app, for example:
 
 ```
-https://username.github.io/pdfeditor/#/sign?session=<random-peer-id>
+https://kitso20.github.io/Signfold/#/sign?session=<random-peer-id>
 ```
 
 The phone creates a WebRTC data connection to the desktop through the peer ID. By default the
